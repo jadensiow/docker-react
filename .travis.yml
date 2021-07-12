@@ -1,5 +1,5 @@
-sudo: required # means super permission
 language: generic
+sudo: required # means super permission
 
 services:
   - docker # will install docker
