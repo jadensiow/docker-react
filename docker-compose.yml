@@ -1,0 +1,22 @@
+version: "3"
+services:
+  web:
+    stdin_open: true
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+    build: # if is . means all the file inside
+      context: . # where you want file and folders for this image to be pulled from. if it is inside a folder for example testing then name it as  that
+      dockerfile: Dockerfile.dev # location of docker file
+    ports:
+      - "3000:3000"
+    volumes:
+      - /app/node_modules #means do not map to this filepath
+      - .:/app # . means current working directory : means map outside of container to the app folder
+  tests: # to have live updating test
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    volumes:
+      - /app/node_modules
+      - .:/app
+    command: ["npm", "run", "test"] # this is to overwrite the command
